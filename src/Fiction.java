@@ -22,11 +22,11 @@ public class Fiction extends Book{
         String subGenre = "";
 
         if (genreId.equalsIgnoreCase("A"))
-            subGenre = "Horror";
+            subGenre = "HORROR";
         else if (genreId.equalsIgnoreCase("B"))
-            subGenre = "Fantasy";
+            subGenre = "FANTASY";
         else if (genreId.equalsIgnoreCase("C"))
-            subGenre = "Romance";
+            subGenre = "ROMANCE";
         
         return subGenre;
     }

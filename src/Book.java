@@ -117,7 +117,7 @@ public class Book {
     public String toString () {
 
         return "\n Title id entered : " +title+ "\n Title : " +fullTitle()+ "\n Author : " +fullAuthor()+ "\n ISBN : " +fullISBN()+ 
-        "\n Price per day : " +pricePerDay()+ "\n Grand total for renting : " +calcTotal();
+        "\n Price per day : RM" +pricePerDay()+ "\n Grand total for renting : RM" +calcTotal();
     }
 
 }

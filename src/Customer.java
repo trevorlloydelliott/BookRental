@@ -13,7 +13,7 @@ public class Customer {
         dayOfRenting = 0;
 
     }
-
+    
     public Customer (String nm, String cn, String id, int dr) {
 
         name = nm;

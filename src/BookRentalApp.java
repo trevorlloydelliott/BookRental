@@ -17,7 +17,7 @@ public class BookRentalApp {
             String gid = "";
             String sb = "";
 
-
+            System.out.println ("");
             System.out.println("Enter fiction or non fiction [0/1]");
             fictionNfiction = input2.nextLine();
 
@@ -49,7 +49,14 @@ public class BookRentalApp {
             else if (fictionNfiction.equalsIgnoreCase("1")) {
                 bk[i] = new NonFictions (tt, sb, new Customer(nm, cn, id, dr));
             }
-            
+            System.out.println ("===================================");
+            System.out.println ("CUSTOMER INFO");
+            System.out.println ("===================================");
+
+            System.out.println (bk[i]. getCustomer(). toString());
+            System.out.println ("===================================");
+            System.out.println ("RECEIPT");
+            System.out.println ("===================================");
 
             System.out.println (bk[i]);
             

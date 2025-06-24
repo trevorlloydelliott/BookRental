@@ -16,6 +16,11 @@ public class BookRentalApp {
             String fictionNfiction = "";
             String gid = "";
             String sb = "";
+            
+            //Additional fee for fiction
+            String af = "";
+            //Student discount for non fiction
+            String sd = ""; 
 
             System.out.println ("");
             System.out.println("Enter fiction or non fiction [0/1]");
@@ -24,16 +29,6 @@ public class BookRentalApp {
             System.out.println ("Enter book title id: ");
             String tt = input2.nextLine();
 
-            if (fictionNfiction.equalsIgnoreCase("0")) {
-                System.out.println ("Enter book genre id: ");
-                    gid = input2.nextLine();
-            }
-            else if (fictionNfiction.equalsIgnoreCase("1")) {
-                System.out.println ("Enter book subject id: ");
-                    sb = input2.nextLine();
-            }
-            
-    
             System.out.println ("Enter name of customer : ");
             String nm = input2.nextLine();
             System.out.println ("Enter customer contact number : ");
@@ -42,14 +37,27 @@ public class BookRentalApp {
             String id = input2.nextLine();
             System.out.println ("Enter day of renting : ");
             int dr = input.nextInt();
-            
+
             if (fictionNfiction.equalsIgnoreCase("0")) {
-                bk[i] = new Fiction (tt, gid, new Customer(nm, cn, id, dr));
+                System.out.println ("Enter book genre id: ");
+                    gid = input2.nextLine();
+                System.out.println ("Will there be additional fee? [Y/N]");
+                    af = input2.nextLine();
             }
             else if (fictionNfiction.equalsIgnoreCase("1")) {
-                bk[i] = new NonFictions (tt, sb, new Customer(nm, cn, id, dr));
+                System.out.println ("Enter book subject id: ");
+                    sb = input2.nextLine();
+                System.out.println ("Is the renter a student? [Y/N]");
+                    sd = input2.nextLine();
             }
-            System.out.println ("===================================");
+            
+            if (fictionNfiction.equalsIgnoreCase("0")) {
+                bk[i] = new Fiction (tt, gid, af, new Customer(nm, cn, id, dr));
+            }
+            else if (fictionNfiction.equalsIgnoreCase("1")) {
+                bk[i] = new NonFiction (tt, sb, sd, new Customer(nm, cn, id, dr));
+            }
+            System.out.println ("===================================");  
             System.out.println ("CUSTOMER INFO");
             System.out.println ("===================================");
 

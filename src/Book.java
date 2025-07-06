@@ -19,10 +19,9 @@ public class Book {
 
     public String getTitle () { return title; }
     public Customer getCustomer () { return c; }
-    
-    //get full title
 
-    public String fullTitle () {
+    //get full title
+    public String getfullTitle () {
 
         String fullTitle = "";
 
@@ -44,7 +43,7 @@ public class Book {
 
     //get full ISBN
 
-    public String fullISBN () {
+    public String getfullISBN () {
 
         String fullISBN = "";
 
@@ -63,7 +62,7 @@ public class Book {
         return fullISBN;
     }
 
-    public String fullAuthor () {
+    public String getfullAuthor () {
 
         String fullAuthor = "";
 
@@ -84,7 +83,7 @@ public class Book {
 
     //get price per day
 
-    public double pricePerDay () {
+    public double getpricePerDay () {
 
         double price = 0;
 
@@ -109,15 +108,15 @@ public class Book {
 
         double calcTotal = 0.0;
 
-        calcTotal = c.getDayOfRenting() * pricePerDay();
+        calcTotal = c.getDayOfRenting() * getpricePerDay();
 
         return calcTotal;
     }
 
     public String toString () {
 
-        return "\n Title id entered : " +title+ "\n Title : " +fullTitle()+ "\n Author : " +fullAuthor()+ "\n ISBN : " +fullISBN()+ 
-        "\n Price per day : RM" +pricePerDay()+ "\n Total before additional fee/student discount : RM" +calcTotal();
+        return "\n Title id entered : " +title+ "\n Title : " +getfullTitle()+ "\n Author : " +getfullAuthor()+ "\n ISBN : " +getfullISBN()+ 
+        "\n Price per day : RM" +getpricePerDay()+ "\n Total before additional fee/student discount : RM" +calcTotal()+ "\n";
     }
 
 }

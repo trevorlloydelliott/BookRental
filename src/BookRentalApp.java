@@ -1,8 +1,49 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
 
 public class BookRentalApp {
     
     public static void main (String args [] ) {
+
+        try {
+
+            BufferedReader in = new BufferedReader(new FileReader("book.txt"));
+            PrintWriter outBook = new PrintWriter(new BufferedWriter(new FileWriter("bookDetails.txt")));
+
+            String inData;
+            while ((inData = in.readLine()) != null) {
+                String[] data = inData.split(";");
+
+                String fullTitle = data[0];
+                String fullISBN = data[1];
+                String fullAuthor = data[2];
+                Double pricePerDay = Double.parseDouble(data[3]);
+
+                outBook.println(fullTitle + "\t\t" + fullISBN + "\t\t" + fullAuthor + "\t\t" + pricePerDay);
+            }
+
+            outBook.println("FULL TITLE\t\tISBN\t\tAUTHOR\t\tPRICE PER DAY");
+            outBook.println("-------------------------------------------------------------");
+
+
+        }
+        catch(FileNotFoundException fe) {
+            System.out.println(fe.getMessage());
+        }
+
+        catch(IOException iox) {
+            System.out.println(iox.getMessage());
+        }
+
+        catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
 
         Scanner input = new Scanner (System.in);
         Scanner input2 = new Scanner (System.in);
@@ -58,12 +99,12 @@ public class BookRentalApp {
                 bk[i] = new NonFiction (tt, sb, sd, new Customer(nm, cn, id, dr));
             }
             System.out.println ("===================================");  
-            System.out.println ("CUSTOMER INFO");
+            System.out.println ("           CUSTOMER INFO           ");
             System.out.println ("===================================");
 
             System.out.println (bk[i]. getCustomer(). toString());
             System.out.println ("===================================");
-            System.out.println ("RECEIPT");
+            System.out.println ("               RECEIPT             ");
             System.out.println ("===================================");
 
             System.out.println (bk[i]);

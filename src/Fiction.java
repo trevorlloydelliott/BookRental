@@ -17,7 +17,7 @@ public class Fiction extends Book{
         additionalFee = af;
     }
 
-    public void setGenreID (String gid) { genreId = gid; }
+    public void setGenreId (String gid) { genreId = gid; }
     public void setadditionalFee (String af) {additionalFee = af;}
     public String getGenreId () { return genreId; }
     public String getadditionalFee () {return additionalFee;}

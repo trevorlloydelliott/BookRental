@@ -1,40 +1,19 @@
 public class Customer {
+    private String _name;
+    private String _contactNumber;
+    private String _identification;
     
-    private String name;
-    private String contactNo;
-    private String identification;
-    private int dayOfRenting;
-
-    public Customer () {
-
-        name = "";
-        contactNo = "";
-        identification = "";
-        dayOfRenting = 0;
-
-    }
-    
-    public Customer (String name, String contactNo, String identification, int dayOfRenting) {
-
-        this.name = name;
-        this.contactNo = contactNo;
-        this.identification = identification;
-        this.dayOfRenting = dayOfRenting;
+    public Customer(String name, String contactNumber, String identification) {
+        _name = name;
+        _contactNumber = contactNumber;
+        _identification = identification;
     }
 
-    public void setName (String name) { this.name = name; }
-    public void setContactNo (String contactNo) { this.contactNo = contactNo; }
-    public void setIdentification (String identification) { this.identification = identification; }
-    public void setDayOfRenting (int dayOfRenting) { this.dayOfRenting = dayOfRenting; }
+    public String getName() { return _name; }
+    public String getContactNumber() { return _contactNumber; }
+    public String getIdentification() { return _identification;}
 
-    public String getName () { return name; }
-    public String getContactNo () { return contactNo; }
-    public String getIdentification () { return identification;}
-    public int getDayOfRenting () { return dayOfRenting; }
-
-    public String toString () {
-
-        return "\n Name : " +name+ "\n Contact No : " +contactNo+ "\n Id : " +identification+ 
-        "\n Days of renting : " +dayOfRenting + "\n";
+    public String toString() {
+        return "Name: " + _name + ", Contact No: " + _contactNumber + ", Id: " + _identification;
     }
 }

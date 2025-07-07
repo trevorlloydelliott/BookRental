@@ -8,115 +8,120 @@ import java.io.PrintWriter;
 import java.util.*;
 
 public class BookRentalApp {
-    
-    public static void main (String args [] ) {
+    public static void main(String args[]) {
+
+        List<Book> bookList = new List<Book>();
+        
+        System.out.println("WELCOME TO ADA'S BOOK RENTAL SHOP");
+        System.out.println("---");
 
         try {
+            System.out.println("Loading book database...");
 
-            BufferedReader in = new BufferedReader(new FileReader("book.txt"));
-            PrintWriter outBook = new PrintWriter(new BufferedWriter(new FileWriter("bookDetails.txt")));
-            outBook.println(String.format("%-25s %-25s %-25s %-25s","FULL TITLE","ISBN","AUTHOR","PRICE PER DAY"));
-            outBook.println("------------------------------------------------------------------------------------------------");
+            BufferedReader reader = new BufferedReader(new FileReader("data/books.csv"));
 
-            String inData;
-            while ((inData = in.readLine()) != null) {
-                String[] data = inData.split(";");
+            String readLine;
+            reader.readLine();
 
-                String fullTitle = data[0];
-                String fullISBN = data[1];
-                String fullAuthor = data[2];
-                Double pricePerDay = Double.parseDouble(data[3]);
+            while ((readLine = reader.readLine()) != null) {
+                String[] data = readLine.split(",");
 
-                outBook.println(String.format("%-25s %-25s %-25s RM%-25s", fullTitle, fullISBN, fullAuthor, pricePerDay));
+                String isbn = data[0];
+                String title = data[1];
+                String author = data[2];
+                String publishedDate = data[3];
+                String language = data[4];
+                String genre = data[5];
+                Double price = Double.parseDouble(data[6]);
+
+                Book book = new Book(isbn, title, author, publishedDate, language, genre, price);
+                bookList.Add(book);
             }
-            in.close();
-            outBook.close();
-
-            BufferedReader showOutput = new BufferedReader(new FileReader("bookDetails.txt"));
-            String line;
-            System.out.println("=== BOOK DETAILS FROM FILE ===");
-            while ((line = showOutput.readLine()) != null) {
-                System.out.println(line);
-            }
-            showOutput.close();
-            
         }
         catch(FileNotFoundException fe) {
-            System.out.println(fe.getMessage());
+            handleError(fe.getMessage());
+            return;
         }
-
         catch(IOException iox) {
-            System.out.println(iox.getMessage());
+            handleError(iox.getMessage());
+            return;
         }
-
         catch(Exception e) {
-            System.out.println(e.getMessage());
+            handleError(e.getMessage());
+            return;
         }
 
-        Scanner input = new Scanner (System.in);
-        Scanner input2 = new Scanner (System.in);
+        registerCustomer();
+
+        Scanner input = new Scanner(System.in);
         
-       //STEP 1 : Declare array of object using super class
-        Book [] bk = new Book[2];
+        Order order = new Order();
+        int bookId;
 
-        //STEP 2 : Instantiate array of object
-        for (int i = 0 ; i < 2 ; i++) {
+        System.out.print("Currently available books:");
 
-            String fictionNfiction = "";
-            String genreId = "";
-            String subject = "";
-            
-            //Additional fee for fiction
-            String additionalFee = "";
-            //Student discount for non fiction
-            String studentDiscount = ""; 
+        do {
+            listBooks();
 
-            System.out.println ("");
-            System.out.println("Enter fiction or non fiction [0/1]");
-            fictionNfiction = input2.nextLine();
+            System.out.print("Please choose a book to add to your order, or choose 0 to finish: ");
+            bookId = input.readInt();
 
-            System.out.println ("Enter book title id: ");
-            String title = input2.nextLine();
-
-            System.out.println ("Enter name of customer : ");
-            String name = input2.nextLine();
-            System.out.println ("Enter customer contact number : ");
-            String contactNo = input2.nextLine();
-            System.out.println ("Enter customer id : ");
-            String identification = input2.nextLine();
-            System.out.println ("Enter day of renting : ");
-            int dayOfRenting = input.nextInt();
-
-            if (fictionNfiction.equalsIgnoreCase("0")) {
-                System.out.println ("Enter book genre id: ");
-                    genreId = input2.nextLine();
-                System.out.println ("Will there be additional fee? [Y/N]");
-                    additionalFee = input2.nextLine();
+            if (bookId == 0) {
+                continue;
             }
-            else if (fictionNfiction.equalsIgnoreCase("1")) {
-                System.out.println ("Enter book subject id: ");
-                    subject = input2.nextLine();
-                System.out.println ("Is the renter a student? [Y/N]");
-                    studentDiscount = input2.nextLine();
-            }
-            
-            if (fictionNfiction.equalsIgnoreCase("0")) {
-                bk[i] = new Fiction (title, genreId, additionalFee, new Customer(name, contactNo, identification, dayOfRenting));
-            }
-            else if (fictionNfiction.equalsIgnoreCase("1")) {
-                bk[i] = new NonFiction (title, studentDiscount, subject, new Customer(name, contactNo, identification, dayOfRenting));
-            }
-            System.out.println ("===================================");  
-            System.out.println ("           CUSTOMER INFO           ");
-            System.out.println ("===================================");
 
-            System.out.println (bk[i]. getCustomer(). toString());
-            System.out.println ("===================================");
-            System.out.println ("               RECEIPT             ");
-            System.out.println ("===================================");
+            if (bookId < 1 || bookId > bookList.size()) {
+                System.out.println("Invalid book.");
+                continue;
+            }
 
-            System.out.println (bk[i]);
-            
+            Book bookToAdd = bookList[bookId - 1];
+
+            System.out.print("How many days would you like to rent this book? ");
+            int daysToRent = input.readInt();
+
+            if (daysToRent < 1) {
+                System.out.println("You must rent for at least one day.");
+                continue;
+            }
+
+            order.addItem(new OrderItem(bookToAdd, bookTo.getPrice(), daysToRent));
+
+            System.out.println("Added " + bookToAdd.getTitle() + " to order.");
         }
+        while (bookId != 0);
+
+        // output details of order
+        System.out.println("Total price: " + order.getTotalPrice());
+    }
+
+    public static Customer registerCustomer() {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Please register as a new customer.");
+        
+        System.out.print("What is your name? ");
+        String customerName = input.nextLine();
+
+        System.out.print("What is your contact number? ");
+        String contactNumber = input.nextLine();
+
+        System.out.print("What is your identification? ");
+        String identification = input.nextLine();
+
+        System.out.print("Thank you for registering.");
+
+        return new Customer(customerName, contactNumber, identification);
+    }
+
+    public static void listBooks(List<Book> bookList) {
+        for (int i = 0; i < bookList.size(); i++) {
+            System.out.println((i + 1) + ": " + book.toString());
+        }
+    }
+
+
+    public static void handleError(String message) {
+        System.out.println("We're sorry, we are having technical difficulties at the moment. (Error: " + message ")");
     }
 }

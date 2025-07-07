@@ -10,7 +10,7 @@ import java.util.*;
 public class BookRentalApp {
     public static void main(String args[]) {
 
-        List<Book> bookList = new List<Book>();
+        ArrayList<Book> bookList = new ArrayList<Book>();
         
         System.out.println("WELCOME TO ADA'S BOOK RENTAL SHOP");
         System.out.println("---");
@@ -18,7 +18,7 @@ public class BookRentalApp {
         try {
             System.out.println("Loading book database...");
 
-            BufferedReader reader = new BufferedReader(new FileReader("data/books.csv"));
+            BufferedReader reader = new BufferedReader(new FileReader("src/data/books.csv"));
 
             String readLine;
             reader.readLine();
@@ -35,8 +35,10 @@ public class BookRentalApp {
                 Double price = Double.parseDouble(data[6]);
 
                 Book book = new Book(isbn, title, author, publishedDate, language, genre, price);
-                bookList.Add(book);
+                bookList.add(book);
             }
+
+            reader.close();
         }
         catch(FileNotFoundException fe) {
             handleError(fe.getMessage());
@@ -51,20 +53,20 @@ public class BookRentalApp {
             return;
         }
 
-        registerCustomer();
-
         Scanner input = new Scanner(System.in);
+
+        registerCustomer(input);
         
         Order order = new Order();
         int bookId;
 
-        System.out.print("Currently available books:");
+        System.out.println("Currently available books:");
 
         do {
-            listBooks();
+            listBooks(bookList);
 
             System.out.print("Please choose a book to add to your order, or choose 0 to finish: ");
-            bookId = input.readInt();
+            bookId = Integer.parseInt(input.nextLine());
 
             if (bookId == 0) {
                 continue;
@@ -75,17 +77,17 @@ public class BookRentalApp {
                 continue;
             }
 
-            Book bookToAdd = bookList[bookId - 1];
+            Book bookToAdd = bookList.get(bookId - 1);
 
             System.out.print("How many days would you like to rent this book? ");
-            int daysToRent = input.readInt();
+            int daysToRent = Integer.parseInt(input.nextLine());
 
             if (daysToRent < 1) {
                 System.out.println("You must rent for at least one day.");
                 continue;
             }
 
-            order.addItem(new OrderItem(bookToAdd, bookTo.getPrice(), daysToRent));
+            order.addItem(new OrderItem(bookToAdd, bookToAdd.getPrice(), daysToRent));
 
             System.out.println("Added " + bookToAdd.getTitle() + " to order.");
         }
@@ -93,11 +95,11 @@ public class BookRentalApp {
 
         // output details of order
         System.out.println("Total price: " + order.getTotalPrice());
+
+        input.close();
     }
 
-    public static Customer registerCustomer() {
-        Scanner input = new Scanner(System.in);
-
+    public static Customer registerCustomer(Scanner input) {
         System.out.println("Please register as a new customer.");
         
         System.out.print("What is your name? ");
@@ -109,19 +111,20 @@ public class BookRentalApp {
         System.out.print("What is your identification? ");
         String identification = input.nextLine();
 
-        System.out.print("Thank you for registering.");
+        System.out.println("Thank you for registering.");
 
         return new Customer(customerName, contactNumber, identification);
     }
 
-    public static void listBooks(List<Book> bookList) {
+    public static void listBooks(ArrayList<Book> bookList) {
         for (int i = 0; i < bookList.size(); i++) {
+            Book book = bookList.get(i);
             System.out.println((i + 1) + ": " + book.toString());
         }
     }
 
 
     public static void handleError(String message) {
-        System.out.println("We're sorry, we are having technical difficulties at the moment. (Error: " + message ")");
+        System.out.println("We're sorry, we are having technical difficulties at the moment. (Error: " + message + ")");
     }
 }

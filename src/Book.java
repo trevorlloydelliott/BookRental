@@ -23,7 +23,7 @@ public class Book {
     public String getPublishedDate() { return _publishedDate; }
     public String getLanguage() { return _language; }
     public String getGenre() { return _genre; }
-    public String getPrice() { return _price; }
+    public double getPrice() { return _price; }
 
     public String toString() {
         return "ISBN: " + _isbn + ", Title: " + _title + ", Author: " + _author + ", PublishedDate: " + _publishedDate +

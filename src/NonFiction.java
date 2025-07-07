@@ -10,15 +10,15 @@ public class NonFiction extends Book{
         studentDiscount = "";
     }
 
-    public NonFiction (String tt, String sb, String sd, Customer cust) {
+    public NonFiction (String title, String subject, String studentDiscount, Customer cust) {
 
-        super (tt, cust);
-        subject = sb;
-        studentDiscount = sd;
+        super (title, cust);
+        this.subject = subject;
+        this.studentDiscount = studentDiscount;
     }
 
-    public void setSubject (String sb) { subject = sb; }
-    public void setStudentDiscount (String sd) { studentDiscount = sd; }
+    public void setSubject (String subject) { this.subject = subject; }
+    public void setStudentDiscount (String studentDiscount) { this.studentDiscount = studentDiscount; }
     public String getSubject () { return subject; }
     public String getStudentDiscount () { return studentDiscount; }
 

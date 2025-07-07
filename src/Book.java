@@ -9,13 +9,13 @@ public class Book {
 
     }
 
-    public Book (String tt, Customer cust) {
+    public Book (String title, Customer cust) {
 
-        title = tt;
+        this.title = title;
         c = cust;
     }
 
-    public void setTitle (String tt) { title = tt; }
+    public void setTitle (String title) { this.title = title; }
 
     public String getTitle () { return title; }
     public Customer getCustomer () { return c; }
@@ -115,7 +115,10 @@ public class Book {
 
     public String toString () {
 
-        return "\n Title id entered : " +title+ "\n Title : " +getfullTitle()+ "\n Author : " +getfullAuthor()+ "\n ISBN : " +getfullISBN()+ 
+        return "\n Title id entered : " +title+ 
+        "\n Title : " +getfullTitle()+ 
+        "\n Author : " +getfullAuthor()+ 
+        "\n ISBN : " +getfullISBN()+ 
         "\n Price per day : RM" +getpricePerDay()+ "\n Total before additional fee/student discount : RM" +calcTotal()+ "\n";
     }
 

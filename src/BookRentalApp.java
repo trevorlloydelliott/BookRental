@@ -15,6 +15,8 @@ public class BookRentalApp {
 
             BufferedReader in = new BufferedReader(new FileReader("book.txt"));
             PrintWriter outBook = new PrintWriter(new BufferedWriter(new FileWriter("bookDetails.txt")));
+            outBook.println(String.format("%-25s %-25s %-25s %-25s","FULL TITLE","ISBN","AUTHOR","PRICE PER DAY"));
+            outBook.println("------------------------------------------------------------------------------------------------");
 
             String inData;
             while ((inData = in.readLine()) != null) {
@@ -25,13 +27,19 @@ public class BookRentalApp {
                 String fullAuthor = data[2];
                 Double pricePerDay = Double.parseDouble(data[3]);
 
-                outBook.println(fullTitle + "\t\t" + fullISBN + "\t\t" + fullAuthor + "\t\t" + pricePerDay);
+                outBook.println(String.format("%-25s %-25s %-25s RM%-25s", fullTitle, fullISBN, fullAuthor, pricePerDay));
             }
+            in.close();
+            outBook.close();
 
-            outBook.println("FULL TITLE\t\tISBN\t\tAUTHOR\t\tPRICE PER DAY");
-            outBook.println("-------------------------------------------------------------");
-
-
+            BufferedReader showOutput = new BufferedReader(new FileReader("bookDetails.txt"));
+            String line;
+            System.out.println("=== BOOK DETAILS FROM FILE ===");
+            while ((line = showOutput.readLine()) != null) {
+                System.out.println(line);
+            }
+            showOutput.close();
+            
         }
         catch(FileNotFoundException fe) {
             System.out.println(fe.getMessage());
@@ -55,48 +63,48 @@ public class BookRentalApp {
         for (int i = 0 ; i < 2 ; i++) {
 
             String fictionNfiction = "";
-            String gid = "";
-            String sb = "";
+            String genreId = "";
+            String subject = "";
             
             //Additional fee for fiction
-            String af = "";
+            String additionalFee = "";
             //Student discount for non fiction
-            String sd = ""; 
+            String studentDiscount = ""; 
 
             System.out.println ("");
             System.out.println("Enter fiction or non fiction [0/1]");
             fictionNfiction = input2.nextLine();
 
             System.out.println ("Enter book title id: ");
-            String tt = input2.nextLine();
+            String title = input2.nextLine();
 
             System.out.println ("Enter name of customer : ");
-            String nm = input2.nextLine();
+            String name = input2.nextLine();
             System.out.println ("Enter customer contact number : ");
-            String cn = input2.nextLine();
+            String contactNo = input2.nextLine();
             System.out.println ("Enter customer id : ");
-            String id = input2.nextLine();
+            String identification = input2.nextLine();
             System.out.println ("Enter day of renting : ");
-            int dr = input.nextInt();
+            int dayOfRenting = input.nextInt();
 
             if (fictionNfiction.equalsIgnoreCase("0")) {
                 System.out.println ("Enter book genre id: ");
-                    gid = input2.nextLine();
+                    genreId = input2.nextLine();
                 System.out.println ("Will there be additional fee? [Y/N]");
-                    af = input2.nextLine();
+                    additionalFee = input2.nextLine();
             }
             else if (fictionNfiction.equalsIgnoreCase("1")) {
                 System.out.println ("Enter book subject id: ");
-                    sb = input2.nextLine();
+                    subject = input2.nextLine();
                 System.out.println ("Is the renter a student? [Y/N]");
-                    sd = input2.nextLine();
+                    studentDiscount = input2.nextLine();
             }
             
             if (fictionNfiction.equalsIgnoreCase("0")) {
-                bk[i] = new Fiction (tt, gid, af, new Customer(nm, cn, id, dr));
+                bk[i] = new Fiction (title, genreId, additionalFee, new Customer(name, contactNo, identification, dayOfRenting));
             }
             else if (fictionNfiction.equalsIgnoreCase("1")) {
-                bk[i] = new NonFiction (tt, sb, sd, new Customer(nm, cn, id, dr));
+                bk[i] = new NonFiction (title, studentDiscount, subject, new Customer(name, contactNo, identification, dayOfRenting));
             }
             System.out.println ("===================================");  
             System.out.println ("           CUSTOMER INFO           ");

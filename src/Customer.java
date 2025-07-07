@@ -14,18 +14,18 @@ public class Customer {
 
     }
     
-    public Customer (String nm, String cn, String id, int dr) {
+    public Customer (String name, String contactNo, String identification, int dayOfRenting) {
 
-        name = nm;
-        contactNo = cn;
-        identification = id;
-        dayOfRenting = dr;
+        this.name = name;
+        this.contactNo = contactNo;
+        this.identification = identification;
+        this.dayOfRenting = dayOfRenting;
     }
 
-    public void setName (String nm) { name = nm; }
-    public void setContactNo (String cn) { contactNo = cn; }
-    public void setIdentification (String id) { identification = id; }
-    public void setDayOfRenting (int dr) { dayOfRenting = dr; }
+    public void setName (String name) { this.name = name; }
+    public void setContactNo (String contactNo) { this.contactNo = contactNo; }
+    public void setIdentification (String identification) { this.identification = identification; }
+    public void setDayOfRenting (int dayOfRenting) { this.dayOfRenting = dayOfRenting; }
 
     public String getName () { return name; }
     public String getContactNo () { return contactNo; }

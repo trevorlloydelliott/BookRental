@@ -10,15 +10,15 @@ public class Fiction extends Book{
         additionalFee = "";
     }
 
-    public Fiction (String tt, String gid, String af, Customer cust) {
+    public Fiction (String title, String genreId, String additionalFee, Customer cust) {
 
-        super(tt, cust);
-        genreId = gid;
-        additionalFee = af;
+        super(title, cust);
+        this.genreId = genreId;
+        this.additionalFee = additionalFee;
     }
 
-    public void setGenreId (String gid) { genreId = gid; }
-    public void setadditionalFee (String af) {additionalFee = af;}
+    public void setGenreId (String genreId) { this.genreId = genreId; }
+    public void setadditionalFee (String additionalFee) {this.additionalFee = additionalFee;}
     public String getGenreId () { return genreId; }
     public String getadditionalFee () {return additionalFee;}
 
